@@ -1,13 +1,17 @@
 Component({
+	// 组件对外暴露的属性
 	properties: {
+		// 背景颜色
 		bgcolor: {
 			type: String,
 			value: '#FFF'
 		},
+		// 渲染的根节点的类名
 		selector: {
 			type: String,
 			value: 'skeleton'
 		},
+		// 加载动画
 		loading: {
 			type: String,
 			value: 'spin'
@@ -22,11 +26,13 @@ Component({
 	attached: function () {
 		//默认的首屏宽高，防止内容闪现
 		const systemInfo = wx.getSystemInfoSync();
+		// 获取系统的信息，作为skeleton的宽和高
 		this.setData({
 			systemInfo: {
 				width: systemInfo.windowWidth,
 				height: systemInfo.windowHeight
 			},
+			// 设置动画
 			loading: this.data.loadingAni.includes(this.data.loading) ? this.data.loading : 'spin'
 		})
 
@@ -37,6 +43,7 @@ Component({
 		const that = this;
 
 		//绘制背景
+		// selectAll: 在当前页面下选择匹配选择器 selector 的所有节点。
 		wx.createSelectorQuery().selectAll(`.${this.data.selector}`).boundingClientRect().exec(function(res){
 			console.log(res);
 			that.setData({
@@ -56,8 +63,10 @@ Component({
 			const that = this;
 
 			//绘制不带样式的节点
+			// 选择所有 .skeleton-rect的节点
 			wx.createSelectorQuery().selectAll(`.${this.data.selector}-rect`).boundingClientRect().exec(function(res){
 				console.log(res);
+				// 保存数据，一维数组是节点，二维数组是节点的信息
 				that.setData({
 					skeletonRectLists: res[0]
 				})
@@ -68,7 +77,7 @@ Component({
 		},
 		radiusHandle: function () {
 			const that = this;
-
+			// 同样地选择所有的 .skeleton-radius节点
 			wx.createSelectorQuery().selectAll(`.${this.data.selector}-radius`).boundingClientRect().exec(function(res){
 				console.log(res);
 				that.setData({

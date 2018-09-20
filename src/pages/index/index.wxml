@@ -1,19 +1,23 @@
+<!-- 作为组件在页面中使用 -->
 <skeleton selector="skeleton"
-          loading="spin"
-          bgcolor="#FFF"
-          wx:if="{{showSkeleton}}"></skeleton>
+loading="spin"
+bgcolor="#FFF"
+wx:if="{{showSkeleton}}"></skeleton>
 
 <!--index.wxml-->
+<!-- 渲染的根节点，加上 .skeleton -->
 <view class="container skeleton">
     <view class="userinfo">
         <block>
+            <!-- 要渲染的圆形节点，加上 .skeleton-radius -->
             <image class="userinfo-avatar skeleton-radius" src="{{userInfo.avatarUrl}}"
-                   mode="cover"></image>
+            mode="cover"></image>
+            <!-- 要渲染的矩形节点，加上 .skeleton-rect -->
             <text class="userinfo-nickname skeleton-rect">{{userInfo.nickName}}</text>
         </block>
     </view>
     <view style="margin: 20px 0">
-        <view wx:for="{{lists}}" class="lists">
+        <view wx:for="{{lists}}" wx:key="{{index}}" class="lists">
             <icon type="success" size="20" class="list skeleton-radius"/>
             <text class="skeleton-rect">{{item}}</text>
         </view>
